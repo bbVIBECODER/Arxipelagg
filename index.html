@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Obunachilar arxipelagi</title>
+<style>
+:root{color-scheme:dark;--bg:#071428;--glass:rgba(9,22,45,.74);--line:rgba(140,200,255,.22);--tx:#eaf4ff;--mut:#93b3d3;--ac:#ffd54a;--ac2:#4de0c4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--tx);font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#c{position:fixed;inset:0;width:100%;height:100%;touch-action:none;display:block;cursor:grab}
+#c:active{cursor:grabbing}
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:18px}
+.top{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.top>*{pointer-events:auto}
+.ttl{padding:10px 14px}
+h1{margin:0;font-size:clamp(16px,3.6vw,24px);letter-spacing:.2px;background:linear-gradient(90deg,#fff,var(--ac));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ttl p{margin:2px 0 0;font-size:12px;color:var(--mut)}
+.stat{padding:10px 14px;min-width:116px;text-align:center}
+.stat b{font-size:24px;color:var(--ac);line-height:1}.stat span{font-size:12px;color:var(--mut);margin-left:4px}
+.stat i{display:block;height:6px;border-radius:9px;background:rgba(255,255,255,.12);margin:7px 0 4px;overflow:hidden}
+.stat u{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac2),var(--ac));border-radius:9px;transition:width .8s}
+.stat small{font-size:10.5px;color:var(--mut)}
+.panel{position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:340px;max-width:calc(100% - 24px);overflow:hidden}
+.hd{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;width:100%;padding:13px 16px;cursor:pointer;font-weight:700;font-size:15px}
+.hd em{font-style:normal;color:var(--ac);font-size:20px;transition:transform .25s}
+.bd{padding:0 16px 16px}.panel.min .bd{display:none}.panel:not(.min) .hd em{transform:rotate(45deg)}
+.row{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.06);padding:0 12px}
+.row:focus-within{border-color:var(--ac2)}.at{color:var(--mut)}
+input{all:unset;flex:1;padding:12px 6px;font-size:16px;color:var(--tx);min-width:0}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}
+.chip{all:unset;box-sizing:border-box;text-align:center;padding:8px 2px;border-radius:12px;border:1px solid var(--line);font-size:11.5px;cursor:pointer;color:var(--mut)}
+.chip span{display:block;font-size:22px;margin-bottom:2px}.chip.on{border-color:var(--ac);color:var(--tx);background:rgba(255,213,74,.12)}
+.go{all:unset;box-sizing:border-box;display:block;width:100%;text-align:center;padding:13px;border-radius:12px;font-weight:800;cursor:pointer;color:#241a00;background:linear-gradient(90deg,var(--ac),#ffb347);font-size:15px}
+.go:active{transform:scale(.98)}
+.lnk{all:unset;display:block;text-align:center;margin-top:10px;font-size:12px;color:var(--mut);cursor:pointer;text-decoration:underline}
+.card{position:fixed;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:270px;padding:16px;animation:up .3s}
+.card[hidden],.card a[hidden]{display:none}.card h3{margin:0 0 4px;font-size:18px;word-break:break-all}.card p{margin:0 0 12px;color:var(--mut);font-size:13px}
+.card a{display:block;text-align:center;padding:10px;border-radius:12px;background:linear-gradient(90deg,var(--ac2),#5aa9ff);color:#04202a;font-weight:800;text-decoration:none;font-size:14px}
+.x{all:unset;position:absolute;right:12px;top:8px;cursor:pointer;color:var(--mut);font-size:20px}
+.hint{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 86px);text-align:center;font-size:12px;color:var(--mut);pointer-events:none;transition:opacity 1.5s}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 96px);transform:translate(-50%,-10px);padding:10px 16px;border-radius:12px;background:#ffd54a;color:#241a00;font-weight:700;font-size:13px;opacity:0;transition:.3s;pointer-events:none;max-width:90%;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.abtn{all:unset;position:fixed;right:12px;top:calc(env(safe-area-inset-top,0px) + 112px);padding:9px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--ac)}.abtn[hidden]{display:none}
+.adm{position:fixed;right:12px;top:calc(env(safe-area-inset-top,0px) + 158px);width:260px;max-width:calc(100% - 24px);padding:14px;display:none}.adm.on{display:block}.adm label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}.adm small{display:block;margin-top:10px;font-size:11px;color:var(--mut)}.adm .go{margin-top:8px}
+input[type=range]{all:revert;width:100%;accent-color:var(--ac)}
+#ad{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.ab{all:unset;box-sizing:border-box;padding:8px 10px;border-radius:10px;border:1px solid var(--line);font-size:12px;cursor:pointer;flex:1 1 auto;text-align:center}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+@media(max-width:700px){.panel{width:auto;right:12px}.card{left:12px;width:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 74px)}.stat{min-width:96px}}
+</style></head><body>
+<canvas id="c"></canvas>
+<header class="top">
+ <div class="ttl glass"><h1>Obunachilar arxipelagi</h1><p>Har bir obunachi — oʻz oroli</p></div>
+ <div class="stat glass"><b id="cnt">0</b><span>ta orol</span><i><u id="bar"></u></i><small id="goal"></small></div>
+</header>
+<div class="hint" id="hint">Aylantirish — sudrang · Yaqinlashtirish — chimting yoki gʻildirak · Orolga bosing</div>
+<section class="card glass" id="card" hidden><button class="x" id="cx" aria-label="Yopish">×</button><h3 id="cn"></h3><p id="ci"></p><a id="cl" target="_blank" rel="noopener">Instagramda ochish</a><div id="ad"></div></section>
+<button class="abtn glass" id="ab" hidden>🛡️ Admin</button>
+<section class="adm glass" id="adm"><b>🛡️ Admin panel</b><div id="lk"><label>Parol</label><div class="row"><input id="pw" type="password" placeholder="Parolni kiriting" autocomplete="off"></div><button class="go" id="pb">Kirish</button></div><div id="ac" hidden><label>USTOZ AI oroli hajmi</label><input type="range" id="hs" min="2" max="6" step=".1"><label>Maqsad (0 — avtomatik)</label><div class="row"><input id="gl" type="number" min="0" placeholder="masalan, 100"></div><button class="go" id="gs">Maqsadni saqlash</button><small>Orolni bosing: kattalashtirish, yorqin qilish yoki oʻchirish tugmalari chiqadi.</small></div></section>
+<section class="panel glass min" id="panel">
+ <button class="hd" id="tg"><span>🏝️ Oʻz orolingni yarat</span><em>＋</em></button>
+ <div class="bd">
+  <div class="row" id="rw"><span class="at">@</span><input id="nm" placeholder="instagram_nomingiz" maxlength="30" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+  <div class="chips" id="chips"></div>
+  <button class="go" id="go">Orolimni yaratish</button>
+  <button class="lnk" id="del" hidden>Orolimni oʻchirish</button>
+ </div>
+</section>
+<div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const TYPES=[['🏠','Uycha'],['☕','Kafe'],['🗼','Mayoq'],['🌴','Palma']];
+const now=()=>performance.now()/1000;
+const hash=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+const cv=$('#c'),R=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene();S.background=new THREE.Color(0x071428);S.fog=new THREE.FogExp2(0x0a1d3a,.0085);
+const cam=new THREE.PerspectiveCamera(50,1,.5,700);
+S.add(new THREE.HemisphereLight(0x9ad0ff,0x1a2a40,1));
+const sun=new THREE.DirectionalLight(0xffe6c0,.9);sun.position.set(20,35,15);S.add(sun);
+const sea=new THREE.Mesh(new THREE.CircleGeometry(400,64).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:0x0b3a66,roughness:.35,metalness:.35}));sea.position.y=-.4;S.add(sea);
+function glowTex(){const k=document.createElement('canvas');k.width=k.height=64;const x=k.getContext('2d'),g=x.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,240,180,1)');g.addColorStop(1,'rgba(255,200,80,0)');x.fillStyle=g;x.fillRect(0,0,64,64);return new THREE.CanvasTexture(k)}
+const GT=glowTex();
+function glow(x,y,z,s){const o=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));o.position.set(x,y,z);o.scale.set(s,s,1);return o}
+// yulduzlar va oy
+{const n=700,a=new Float32Array(n*3);for(let i=0;i<n;i++){const u=Math.random()*6.283,v=Math.acos(Math.random()*.9+.1),r=380;a[i*3]=r*Math.sin(v)*Math.cos(u);a[i*3+1]=r*Math.cos(v);a[i*3+2]=r*Math.sin(v)*Math.sin(u)}
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));S.add(new THREE.Points(g,new THREE.PointsMaterial({size:1.6,sizeAttenuation:false,color:0xffffff,fog:false})));
+const m=new THREE.Mesh(new THREE.SphereGeometry(14,24,24),new THREE.MeshBasicMaterial({color:0xfff3c4,fog:false}));m.position.set(-190,150,-260);S.add(m);S.add(glow(-190,150,-260,150))}
+// umumiy geometriya va materiallar
+const BOX=new THREE.BoxGeometry(1,1,1),CYL=new THREE.CylinderGeometry(1,1,1,24),TAP=new THREE.CylinderGeometry(.6,1,1,16),C4=new THREE.ConeGeometry(1,1,4),C24=new THREE.ConeGeometry(1,1,24),TOR=new THREE.TorusGeometry(2.45,.07,8,48),RING=new THREE.RingGeometry(2.8,3.5,40).rotateX(-Math.PI/2);
+const MC={},mat=(c,e=0)=>MC[c+'_'+e]||(MC[c+'_'+e]=new THREE.MeshStandardMaterial({color:c,roughness:.7,emissive:e?c:0,emissiveIntensity:e}));
+const ringMat=new THREE.MeshBasicMaterial({color:0x9ad8ff,transparent:true,opacity:.15,depthWrite:false});
+function part(g,geo,c,e,sx,sy,sz,x,y,z){const o=new THREE.Mesh(geo,mat(c,e));o.scale.set(sx,sy,sz);o.position.set(x,y,z);g.add(o);return o}
+function building(t,h){const g=new THREE.Group(),p=(...a)=>part(g,...a);
+ if(t==0){p(BOX,h,0,1.4,1,1.2,0,.75,0);p(C4,0xd9534f,0,1.3,.8,1.3,0,1.65,0).rotation.y=Math.PI/4;p(BOX,0xffd54a,1,.3,.35,.05,.3,.7,.62);p(BOX,0x5a3a1a,0,.3,.55,.05,-.3,.55,.62)}
+ if(t==1){p(BOX,h,0,1.9,.85,1.2,0,.68,0);p(BOX,0xff5a5f,0,2.1,.12,.7,0,1.2,.75);p(BOX,0xffffff,0,.45,.12,.7,-.75,1.2,.75);p(BOX,0xffd54a,1,.9,.3,.05,0,1.5,.55);p(BOX,0xffd54a,1,.5,.4,.05,-.5,.7,.62);p(CYL,0xdddddd,0,.14,.5,.14,.7,.25,.8)}
+ if(t==2){p(TAP,0xf5f5f5,0,.9,2.2,.9,0,1.35,0);p(CYL,0xd9534f,0,.75,.35,.75,0,1.2,0);p(CYL,0xffd54a,1.2,.5,.35,.5,0,2.65,0);p(C24,0xd9534f,0,.65,.5,.65,0,3.1,0);g.add(glow(0,2.65,0,3.6))}
+ if(t==3){const tr=p(CYL,0x8a5a2b,0,.12,1.9,.12,0,1,0);tr.rotation.z=.12;const top=new THREE.Group();top.position.set(.22,1.95,0);g.add(top);
+  for(let i=0;i<6;i++){const l=new THREE.Group();l.rotation.y=i*1.047;const b=part(l,BOX,i%2?0x27ae60:0x2ecc71,0,1.3,.05,.34,.6,0,0);b.rotation.z=-.45;top.add(l)}
+  part(top,new THREE.SphereGeometry(1,8,8),0x6b4423,0,.14,.14,.14,0,-.1,0);part(g,new THREE.SphereGeometry(1,8,8),0x2d8a43,0,.5,.35,.5,-.9,.3,.5)}
+ return g}
+function label(name,own,hub){const k=document.createElement('canvas');k.width=320;k.height=80;const x=k.getContext('2d'),t=hub?'🏝️ USTOZ AI':'@'+name;x.font='700 30px system-ui,sans-serif';
+ const w=Math.min(304,x.measureText(t).width+34);x.fillStyle=own?'rgba(255,213,74,.95)':'rgba(8,20,42,.82)';x.strokeStyle=own?'#fff':'rgba(150,210,255,.6)';x.lineWidth=3;
+ x.beginPath();x.roundRect?x.roundRect(160-w/2,12,w,56,28):x.rect(160-w/2,12,w,56);x.fill();x.stroke();x.fillStyle=own?'#241a00':'#eaf4ff';x.textAlign='center';x.textBaseline='middle';x.fillText(t,160,41,w-24);
+ const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(k),depthTest:false,fog:false,transparent:true}));s.scale.set(5.6,1.4,1);s.position.y=4.3;s.renderOrder=9;return s}
+const pos=i=>{if(!i)return{x:0,z:0};const a=i*2.39996,r=6.6*Math.sqrt(i+2.2)+(cfg.hub-2.2)*2.6;return{x:Math.cos(a)*r,z:Math.sin(a)*r}};
+const isl=[],picks=[];let users=[],BO={},DB=null,UID='local',ADMIN=false,OPEN=false,selO=null,selId=null;const cfg={hub:3.4,goal:0};
+function bridge(i,sc){if(!i)return null;const A=pos(i);let j=0,b=1e9;for(let k=0;k<i;k++){const P=pos(k),d=Math.hypot(A.x-P.x,A.z-P.z);if(d<b){b=d;j=k}}
+ const B=pos(j),ra=2.35*sc,rj=2.35*isl[j].sc,d=Math.max(.5,b-ra-rj),m=(ra+b-rj)/2/b,g=new THREE.Group();g.position.set(A.x+(B.x-A.x)*m,.08,A.z+(B.z-A.z)*m);g.lookAt(B.x,.08,B.z);
+ part(g,BOX,0x9a6a35,0,.8,.14,d,0,0,0);for(const s of[-1,1])for(const q of[-1,1])part(g,new THREE.SphereGeometry(1,8,8),0xffd54a,1,.09,.09,.09,s*.42,.3,q*(d/2-.25));S.add(g);return g}
+function addIsland(name,type,own,born,hub,id,bo){const i=isl.length,p=pos(i),g=new THREE.Group(),sc=hub?cfg.hub:(bo&&clamp(+bo.sc||1,.6,2.2))||1,gl=!!(bo&&bo.glow),h=new THREE.Color().setHSL((hash(name)%360)/360,.55,.62).getHex();
+ g.position.set(p.x,0,p.z);part(g,CYL,0x3f9b52,0,2.3,.5,2.3,0,0,0);part(g,CYL,0xe8d29a,0,2.5,.3,2.5,0,-.15,0);part(g,C24,0x6b6258,0,2.5,2.6,2.5,0,-1.55,0).rotation.x=Math.PI;
+ g.add(building(type,h));if(hub){for(const[x,z,r]of[[1.7,1.3,.2],[-1.8,-1,1.4],[.4,-2,2.6]]){const pm=building(3);pm.position.set(x,0,z);pm.rotation.y=r;pm.scale.setScalar(.8);g.add(pm)}}g.add(label(name,own||gl,hub));
+ const rg=new THREE.Mesh(RING,ringMat);rg.position.y=-.3;g.add(rg);
+ if(own||gl){const t=new THREE.Mesh(TOR,mat(0xffd54a,1));t.rotation.x=Math.PI/2;t.position.y=.3;g.add(t);g.add(glow(0,1,0,gl?18:9))}
+ const pk=new THREE.Mesh(new THREE.SphereGeometry(3.2,8,8),new THREE.MeshBasicMaterial({visible:false}));pk.position.y=1;pk.userData.i=i;g.add(pk);picks.push(pk);
+ g.scale.setScalar(.001);S.add(g);const o={name,type,g,born:born||now(),br:bridge(i,sc),i,own,hub,sc,id,gl};isl.push(o);stats();return o}
+function stats(){const n=Math.max(0,isl.length-1),goal=cfg.goal>0?cfg.goal:Math.ceil((n+1)/25)*25;$('#cnt').textContent=n;$('#bar').style.width=(n/goal*100)+'%';$('#goal').textContent='Maqsad: '+goal+' ta orol'}
+// kamera
+const T={th:.7,ph:.95,d:150,x:0,z:0},C={...T,d:190};let idle=now(),base=70;
+function fit(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();base=w/h<.8?62:44}
+addEventListener('resize',fit);fit();T.d=base;
+const P=new Map();let moved=0,t0=0,pd=1;const pdist=()=>{const a=[...P.values()];return Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])||1};
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);P.set(e.pointerId,[e.clientX,e.clientY]);moved=0;t0=performance.now();if(P.size==2)pd=pdist();idle=now()});
+cv.addEventListener('pointermove',e=>{const o=P.get(e.pointerId);if(!o)return;const dx=e.clientX-o[0],dy=e.clientY-o[1];P.set(e.pointerId,[e.clientX,e.clientY]);moved+=Math.abs(dx)+Math.abs(dy);
+ if(P.size==1){T.th-=dx*.006;T.ph=clamp(T.ph-dy*.005,.25,1.45)}else if(P.size==2){const n=pdist();T.d=clamp(T.d*pd/n,12,180);pd=n}idle=now()});
+cv.addEventListener('pointerup',e=>{if(P.size==1&&moved<8&&performance.now()-t0<450)tap(e);P.delete(e.pointerId)});
+cv.addEventListener('pointercancel',e=>P.delete(e.pointerId));
+cv.addEventListener('wheel',e=>{e.preventDefault();T.d=clamp(T.d*Math.exp(e.deltaY*.001),12,180);idle=now()},{passive:false});
+const ray=new THREE.Raycaster(),v2=new THREE.Vector2();
+function tap(e){v2.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(v2,cam);const h=ray.intersectObjects(picks)[0];h?select(h.object.userData.i):$('#card').hidden=true}
+function select(i){const o=isl[i];if(!o)return;T.x=o.g.position.x;T.z=o.g.position.z;T.d=Math.min(T.d,o.hub?14*cfg.hub:26);T.ph=Math.min(T.ph,1.05);idle=now()+4;
+ $('#cn').textContent=o.hub?'🏝️ USTOZ AI':'@'+o.name;$('#ci').textContent=o.hub?'Asosiy orol · barcha obunachilar shu orolga ulanadi':TYPES[o.type][0]+' '+TYPES[o.type][1]+' · №'+i+(o.own?' · Sizning orolingiz':'');$('#cl').hidden=!!o.hub;$('#cl').href='https://instagram.com/'+o.name;$('#card').hidden=false;selO=o;selId=o.id;adm()}
+$('#cx').onclick=()=>$('#card').hidden=true;
+// forma
+let sel=0,me=null;const ch=$('#chips');
+TYPES.forEach((t,i)=>{const b=document.createElement('button');b.className='chip'+(i?'':' on');b.innerHTML='<span>'+t[0]+'</span>'+t[1];b.onclick=()=>{sel=i;[...ch.children].forEach((c,k)=>c.classList.toggle('on',k==i))};ch.append(b)});
+const pn=$('#panel');$('#tg').onclick=()=>pn.classList.toggle('min');if(innerWidth>700)pn.classList.remove('min');
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2800)}
+function ui(){const m=!!me;$('#rw').style.display=ch.style.display=m?'none':'';$('#del').hidden=!m;$('#go').textContent=m?'Orolimni topish':'Orolimni yaratish';$('.hd span').textContent=m?'🏝️ Sizning orolingiz tayyor':'🏝️ Oʻz orolingni yarat'}
+function mk(n,t){if(DB)return DB.doc('islands/'+UID).set({name:n,type:t,t:Date.now()});users.push({id:UID,name:n,type:t,t:Date.now()});render();return Promise.resolve()}
+$('#go').onclick=()=>{if(me){select(me.i);if(innerWidth<=700)pn.classList.add('min');return}
+ const n=$('#nm').value.trim().replace(/^@/,'').toLowerCase();
+ if(!/^[a-z0-9._]{2,30}$/.test(n))return toast('Instagram nomini toʻgʻri kiriting (lotin harflari, raqam, nuqta, pastki chiziq)');
+ if(isl.some(o=>o.name==n))return toast('Bu nom allaqachon arxipelagda bor');
+ mk(n,sel).then(()=>{if(!DB)try{localStorage.setItem('arx',JSON.stringify({n,t:sel}))}catch(e){}}).catch(()=>toast('Saqlab boʻlmadi: ruxsat yoʻq'));
+ setTimeout(()=>me&&select(me.i),DB?700:50);toast('Tabriklaymiz! Orolingiz qoʻshildi 🎉');if(innerWidth<=700)pn.classList.add('min')};
+$('#del').onclick=()=>{if(!me)return;try{localStorage.removeItem('arx')}catch(e){}if(DB)DB.doc('islands/'+UID).delete();else{users=users.filter(u=>u.id!=UID);render()}$('#card').hidden=true;toast('Orol oʻchirildi')};
+// ishga tushirish
+const seen=new Set();
+function render(){const t=now();for(const o of isl){S.remove(o.g);o.br&&S.remove(o.br);o.g.traverse(m=>{if(m.isSprite){m.material.map&&m.material.map.dispose();m.material.dispose()}})}
+ isl.length=0;picks.length=0;me=null;
+ addIsland('ustoz ai',2,true,seen.has('hub')?-9:t+.3,true,'hub');seen.add('hub');
+ users.slice().sort((a,b)=>a.t-b.t).forEach(u=>{const o=addIsland(u.name,u.type,u.id==UID,seen.has(u.id)?-9:t+.2,false,u.id,BO[u.id]);seen.add(u.id);if(u.id==UID)me=o});
+ selO=selId&&isl.find(o=>o.id==selId)||null;if(selO)adm();else $('#card').hidden=true;ui()}
+function adm(){const a=$('#ad');a.innerHTML='';const o=selO;if(!ADMIN||!OPEN||!o||$('#card').hidden)return;
+ const bt=(t,f)=>{const b=document.createElement('button');b.className='ab';b.textContent=t;b.onclick=f;a.append(b)},er=()=>toast('Saqlab boʻlmadi');
+ if(o.hub){bt('➕ Kattaroq',()=>cfgSet({hub:clamp(+(cfg.hub+.4).toFixed(1),2,6)}));bt('➖ Kichikroq',()=>cfgSet({hub:clamp(+(cfg.hub-.4).toFixed(1),2,6)}));return}
+ const set=p=>DB.doc('boosts/'+o.id).set({sc:clamp(+(p.sc==null?o.sc:p.sc).toFixed(2),.6,2.2),glow:p.glow==null?o.gl:p.glow}).catch(er);
+ bt('➕ Kattaroq',()=>set({sc:o.sc+.3}));bt('➖ Kichikroq',()=>set({sc:o.sc-.3}));bt(o.gl?'✨ Yorqinni oʻchirish':'✨ Yorqin qilish',()=>set({glow:!o.gl}));
+ bt('🗑 Oʻchirish',()=>DB.doc('islands/'+o.id).delete().then(()=>{DB.doc('boosts/'+o.id).delete().catch(()=>{});selId=null}).catch(()=>toast('Oʻchirib boʻlmadi')))}
+function cfgSet(p){if(DB)DB.doc('config/main').set({hub:cfg.hub,goal:cfg.goal,...p}).catch(()=>toast('Saqlab boʻlmadi'))}
+function adminUI(){$('#ab').hidden=!ADMIN;$('#hs').value=cfg.hub;$('#gl').value=cfg.goal||''}
+$('#ab').onclick=()=>$('#adm').classList.toggle('on');
+$('#pb').onclick=async()=>{try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode($('#pw').value.trim().toLowerCase()));const h=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');if(h==='453d5f86f68c151ca103a924f1d50850830c7ca7eb079c100dc00f7f680896c3'){OPEN=true;$('#lk').hidden=true;$('#ac').hidden=false;$('#pw').value='';adm();toast('Admin ochildi ✅')}else toast('Parol notoʻgʻri')}catch(e){toast('Tekshirib boʻlmadi')}};$('#pw').onkeydown=e=>e.key=='Enter'&&$('#pb').click();$('#hs').onchange=e=>cfgSet({hub:clamp(+e.target.value,2,6)});
+$('#gs').onclick=()=>{cfgSet({goal:Math.max(0,Math.floor(+$('#gl').value||0))});toast('Maqsad saqlandi')};
+try{const s=JSON.parse(localStorage.getItem('arx')||'null');if(s&&/^[a-z0-9._]{2,30}$/.test(s.n))users.push({id:UID,name:s.n,type:s.t&3,t:1})}catch(e){}
+render();
+(async()=>{try{if(!window.claude)return;const[db,us]=await Promise.all([claude.use('db'),claude.use('user')]);const id=us&&await us.id();if(!db||!id)return;DB=db;UID=id;users=[];ADMIN=!!((await us.canEdit())||(await us.isOwner()));adminUI();
+ DB.collection('islands').onSnapshot(s=>{users=s.docs.map(d=>{const x=d.data()||{};return{id:d.id,name:String(x.name||''),type:(x.type|0)&3,t:+x.t||0}}).filter(u=>/^[a-z0-9._]{2,30}$/.test(u.name));render()},()=>{});
+ DB.collection('boosts').onSnapshot(s=>{BO={};s.docs.forEach(d=>BO[d.id]=d.data());render()},()=>{});
+ DB.doc('config/main').onSnapshot(s=>{const d=s.data();if(d){cfg.hub=clamp(+d.hub||3.4,2,6);cfg.goal=Math.max(0,+d.goal||0)}adminUI();render()},()=>{})}catch(e){}})();
+setTimeout(()=>$('#hint').style.opacity=0,7000);
+// animatsiya
+function loop(){requestAnimationFrame(loop);const t=now();
+ if(t-idle>4&&!P.size)T.th+=.0007;
+ for(const k of['th','ph','d','x','z'])C[k]+=(T[k]-C[k])*.07;
+ cam.position.set(C.x+C.d*Math.sin(C.ph)*Math.cos(C.th),C.d*Math.cos(C.ph),C.z+C.d*Math.sin(C.ph)*Math.sin(C.th));cam.lookAt(C.x,0,C.z);
+ isl.forEach((o,i)=>{const k=clamp((t-o.born)/1.1,0,1),e=k<1?1+2.70158*Math.pow(k-1,3)+1.70158*Math.pow(k-1,2):1;o.g.scale.setScalar(Math.max(.001,e*o.sc));o.g.position.y=Math.sin(t*.8+i)*.08});
+ ringMat.opacity=.13+.07*Math.sin(t*1.6);R.render(S,cam)}
+loop();
+</script></body></html>
